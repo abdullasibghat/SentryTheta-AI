@@ -45,17 +45,17 @@ Whether operating in **Copilot Mode** (human-in-the-loop 1-click approvals) or *
 
 ```mermaid
 flowchart TD
-    News[RSS News Feeds] --> Analyst[1. Market Analyst AI]
-    AlpacaData[Alpaca Option Chains] --> Strategist[2. Volatility Strategist]
-    Analyst -->|Directional Sentiment Score| Strategist
-    Strategist -->|Drafts Option Trade| RiskOfficer[3. Sentry Risk Officer]
-    RiskOfficer -->|Checks 5% Equity Cap & Drawdowns| Gatekeeper{Risk Passed?}
-    Gatekeeper -->|No| TerminalLogs[Log Warning to Thought Terminal]
-    Gatekeeper -->|Yes| ModeCheck{Mode?}
-    ModeCheck -->|Copilot Mode| UIQueue[Copilot Decision Center - Awaiting 1-Click Approval]
-    ModeCheck -->|Autopilot Mode| Broker[Alpaca Paper Trading API]
-    UIQueue -->|User Approves| Broker
-    Broker -->|Order Filled| ActiveRegistry[Active Option Contracts & SQLite DB]
+    News["RSS News Feeds"] --> Analyst["1. Market Analyst AI"]
+    AlpacaData["Alpaca Option Chains"] --> Strategist["2. Volatility Strategist"]
+    Analyst -->|"Directional Sentiment Score"| Strategist
+    Strategist -->|"Drafts Option Trade"| RiskOfficer["3. Sentry Risk Officer"]
+    RiskOfficer -->|"Checks 5% Equity Cap & Drawdowns"| Gatekeeper{"Risk Passed?"}
+    Gatekeeper -->|"No"| TerminalLogs["Log Warning to Thought Terminal"]
+    Gatekeeper -->|"Yes"| ModeCheck{"Mode?"}
+    ModeCheck -->|"Copilot Mode"| UIQueue["Copilot Decision Center (1-Click Approval)"]
+    ModeCheck -->|"Autopilot Mode"| Broker["Alpaca Paper Trading API"]
+    UIQueue -->|"User Approves"| Broker
+    Broker -->|"Order Filled"| ActiveRegistry["Active Option Contracts & SQLite DB"]
 ```
 
 ---
@@ -64,7 +64,7 @@ flowchart TD
 
 ### 1. Clone & Install Dependencies
 ```bash
-git clone https://github.com/your-username/SentryTheta-AI.git
+git clone https://github.com/abdullasibghat/SentryTheta-AI.git
 cd SentryTheta-AI
 pip install -r requirements.txt
 ```
