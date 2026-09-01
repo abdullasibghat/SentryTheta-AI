@@ -37,7 +37,7 @@ def run_server_command():
     import uvicorn
     
     port = int(os.getenv("PORT", "8000"))
-    host = os.getenv("HOST", "127.0.0.1")
+    host = os.getenv("HOST", "0.0.0.0")
     
     logger.info(f"Starting server on http://{host}:{port}")
     uvicorn.run("backend.server:app", host=host, port=port, reload=False)
