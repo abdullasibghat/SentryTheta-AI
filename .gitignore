@@ -1,0 +1,28 @@
+# Environment Variables (Keep secrets private)
+.env
+.env.local
+.env.*.local
+
+# SQLite Database
+sentrytheta.db
+sentrytheta.db-journal
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

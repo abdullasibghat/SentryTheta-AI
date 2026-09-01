@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentryTheta AI — Autonomous Options Risk & Strategy Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="glowing-orb orbi-1"></div>
+    <div class="glowing-orb orbi-2"></div>
+    
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header glass">
+            <div class="header-logo">
+                <i class="fa-solid fa-shield-halved logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Sentry<span>Theta</span></h1>
+                    <span class="logo-subtitle">AI Options Officer</span>
+                </div>
+            </div>
+            
+            <div class="header-status">
+                <div class="header-mode-toggle" id="header-mode-toggle" title="Click to instantly toggle Autopilot / Copilot">
+                    <span class="toggle-lbl"><i class="fa-solid fa-robot"></i> Autopilot</span>
+                    <label class="switch">
+                        <input type="checkbox" id="header-autopilot-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div id="system-status-indicator" class="status-badge offline">
+                    <span class="status-dot"></span>
+                    <span id="status-text">Disconnected</span>
+                </div>
+                <div id="mode-badge" class="mode-badge copilot">
+                    <span id="mode-text">COPILOT</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Guided Workflow Steps -->
+        <section class="guided-workflow glass">
+            <div class="workflow-header">
+                <h3><i class="fa-solid fa-map-location-dot"></i> Setup & Trading Workflow Checklist</h3>
+                <span class="workflow-badge">Interactive Guide</span>
+            </div>
+            <div class="workflow-steps">
+                <div class="workflow-step active clickable-step" id="step-1-card" data-target="panel-step-1">
+                    <div class="step-num">1</div>
+                    <div class="step-details">
+                        <h4>Configure Limits</h4>
+                        <p>Set target tickers & risk boundaries in **Risk Guards** (Top-Left), then apply.</p>
+                    </div>
+                </div>
+                <div class="workflow-step clickable-step" id="step-2-card" data-target="panel-step-2">
+                    <div class="step-num">2</div>
+                    <div class="step-details">
+                        <h4>AI Scan Loop</h4>
+                        <p>Watch live news analysis & option chain logs in the **AI Thought Terminal** (Top-Right).</p>
+                    </div>
+                </div>
+                <div class="workflow-step clickable-step" id="step-3-card" data-target="panel-step-3">
+                    <div class="step-num">3</div>
+                    <div class="step-details">
+                        <h4>Approve Order</h4>
+                        <p>Review and authorize trades generated in the **Copilot Decision Center** (Bottom-Left).</p>
+                    </div>
+                </div>
+                <div class="workflow-step clickable-step" id="step-4-card" data-target="panel-step-4">
+                    <div class="step-num">4</div>
+                    <div class="step-details">
+                        <h4>Monitor Performance</h4>
+                        <p>Track active option positions, stop-losses, and daily P&L in real-time (Bottom-Right).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Dashboard Grid -->
+        <main class="dashboard-grid">
+            <!-- Metrics Row -->
+            <section class="metrics-container">
+                <!-- Equity Card -->
+                <div class="metric-card glass">
+                    <div class="metric-info">
+                        <span class="metric-label">Account Equity</span>
+                        <h2 id="metric-equity" class="metric-val">$0.00</h2>
+                    </div>
+                    <div class="metric-icon val-equity"><i class="fa-solid fa-wallet"></i></div>
+                </div>
+                
+                <!-- Buying Power -->
+                <div class="metric-card glass">
+                    <div class="metric-info">
+                        <span class="metric-label">Buying Power</span>
+                        <h2 id="metric-buying-power" class="metric-val">$0.00</h2>
+                    </div>
+                    <div class="metric-icon val-bp"><i class="fa-solid fa-bolt"></i></div>
+                </div>
+                
+                <!-- Cash -->
+                <div class="metric-card glass">
+                    <div class="metric-info">
+                        <span class="metric-label">Cash Balance</span>
+                        <h2 id="metric-cash" class="metric-val">$0.00</h2>
+                    </div>
+                    <div class="metric-icon val-cash"><i class="fa-solid fa-money-bill-wave"></i></div>
+                </div>
+                
+                <!-- Today's P&L -->
+                <div class="metric-card glass">
+                    <div class="metric-info">
+                        <span class="metric-label">Today's P&L</span>
+                        <h2 id="metric-pl" class="metric-val">$0.00</h2>
+                        <span id="metric-pl-pc" class="metric-change positive">(0.00%)</span>
+                    </div>
+                    <div id="pl-icon-container" class="metric-icon val-pl"><i class="fa-solid fa-chart-line"></i></div>
+                </div>
+            </section>
+
+            <!-- Column 1 (Left): Step 1 (Risk Controls) & Step 3 (Decision Center) -->
+            <div class="dashboard-col left-col">
+                
+                <!-- Step 1: Risk Controls & Preferences -->
+                <section class="settings-section glass" id="panel-step-1">
+                    <div class="card-header">
+                        <h3><span class="header-step-badge">1</span><i class="fa-solid fa-sliders header-icon"></i> Risk Guards & Parameters</h3>
+                    </div>
+                    <form id="settings-form" class="settings-form">
+                        <div class="form-row flex-row">
+                            <div class="form-group flex-1">
+                                <label for="trading-mode">Agent Role Mode</label>
+                                <select id="trading-mode" class="form-control">
+                                    <option value="copilot">Copilot (Human Approval Required)</option>
+                                    <option value="autopilot">Autopilot (100% Autonomous)</option>
+                                </select>
+                            </div>
+                            <div class="form-group flex-1">
+                                <label for="scan-interval">Scan Interval (Secs)</label>
+                                <input type="number" id="scan-interval" class="form-control" min="10" value="60">
+                            </div>
+                        </div>
+                        <div class="form-group relative">
+                            <label>Target Tickers</label>
+                            <div class="tag-input-container form-control" id="tag-input-container">
+                                <div class="tags-wrapper" id="tags-wrapper"></div>
+                                <input type="text" id="ticker-search" placeholder="Type to search and add ticker..." autocomplete="off">
+                                <div class="dropdown-list hidden" id="ticker-dropdown"></div>
+                            </div>
+                            <span class="help-text">Click tickers in the dropdown or type and press Enter to add custom ticker</span>
+                        </div>
+
+                        <div class="form-row border-top">
+                            <div class="form-group">
+                                <label for="max-pos">Max Position Size (%)</label>
+                                <input type="number" id="max-pos" class="form-control" step="0.5" value="5.0">
+                                <span class="help-text">Max premium cost as % of total equity</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="max-drawdown">Max Daily Drawdown (%)</label>
+                                <input type="number" id="max-drawdown" class="form-control" step="0.5" value="3.0">
+                                <span class="help-text">Block trading if daily loss reaches limit</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="stop-loss">Stop Loss (%)</label>
+                                <input type="number" id="stop-loss" class="form-control" step="1.0" value="15.0">
+                                <span class="help-text">Auto-liquidate if contract drops by %</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="take-profit">Take Profit (%)</label>
+                                <input type="number" id="take-profit" class="form-control" step="1.0" value="30.0">
+                                <span class="help-text">Auto-harvest if contract gains reaches %</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-save-settings">
+                            <i class="fa-solid fa-floppy-disk"></i> Apply Parameters
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Step 3: Copilot Decision Center -->
+                <section class="copilot-section glass card-glow" id="panel-step-3">
+                    <div class="card-header">
+                        <h3><span class="header-step-badge">3</span><i class="fa-solid fa-brain header-icon"></i> Copilot Decision Center</h3>
+                        <span class="pulse-tag" id="scanner-pulse"><span class="pulse-dot"></span>Scanner Active</span>
+                    </div>
+                    
+                    <div class="proposal-container" id="proposal-wrapper">
+                        <!-- Idle State -->
+                        <div class="proposal-idle" id="proposal-idle-state">
+                            <div class="radar">
+                                <div class="radar-circle"></div>
+                                <div class="radar-circle delay-1"></div>
+                                <div class="radar-circle delay-2"></div>
+                                <i class="fa-solid fa-magnifying-glass-chart radar-icon"></i>
+                            </div>
+                            <h4>Scanning Market Chains...</h4>
+                            <p>Analyzing news sentiment and filtering option chains for risk-compliant trades.</p>
+                        </div>
+                        
+                        <!-- Proposed Trade Detail (Hidden by default) -->
+                        <div class="proposal-details hidden" id="proposal-active-state">
+                            <div class="proposal-badge">ACTION REQUIRED</div>
+                            
+                            <div class="proposal-title-row">
+                                <div class="strategy-badge" id="prop-strategy">Bull Call Spread</div>
+                                <h3 id="prop-symbol">AAPL260904C00220000</h3>
+                            </div>
+                            
+                            <div class="prop-metrics-grid">
+                                <div class="prop-metric">
+                                    <span class="label">Action</span>
+                                    <span class="val uppercase" id="prop-side">BUY</span>
+                                </div>
+                                <div class="prop-metric">
+                                    <span class="label">Contracts</span>
+                                    <span class="val" id="prop-qty">5</span>
+                                </div>
+                                <div class="prop-metric">
+                                    <span class="label">Est. Premium</span>
+                                    <span class="val highlight" id="prop-premium">$3.50</span>
+                                </div>
+                                <div class="prop-metric">
+                                    <span class="label">Est. Capital Required</span>
+                                    <span class="val highlight" id="prop-cost">$1,750.00</span>
+                                </div>
+                            </div>
+                            
+                            <div class="prop-analysis-card">
+                                <div class="analysis-row">
+                                    <div class="analysis-item">
+                                        <span class="lbl"><i class="fa-solid fa-face-smile"></i> Sentiment Score</span>
+                                        <div class="sentiment-meter">
+                                            <div class="sentiment-bar" id="prop-sentiment-bar" style="width: 75%"></div>
+                                            <span class="sentiment-txt" id="prop-sentiment">+0.75</span>
+                                        </div>
+                                    </div>
+                                    <div class="analysis-item">
+                                        <span class="lbl"><i class="fa-solid fa-circle-check text-green"></i> Sentry Risk Clearance</span>
+                                        <span class="risk-val text-green" id="prop-risk-status"><i class="fa-solid fa-shield"></i> Clean (1.75% Allocation)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="proposal-actions">
+                                <button class="btn btn-approve" id="btn-approve-trade">
+                                    <i class="fa-solid fa-circle-check"></i> Approve & Transmit Order
+                                </button>
+                                <button class="btn btn-reject" id="btn-reject-trade">
+                                    <i class="fa-solid fa-circle-xmark"></i> Reject Strategy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Column 2 (Right): Step 2 (Thought Terminal) & Step 4 (Active Positions) -->
+            <div class="dashboard-col right-col">
+                
+                <!-- Step 2: Thought Terminal -->
+                <section class="terminal-section glass" id="panel-step-2">
+                    <div class="card-header border-none">
+                        <h3><span class="header-step-badge">2</span><i class="fa-solid fa-terminal header-icon text-cyan"></i> AI Thought Terminal</h3>
+                        <div class="terminal-actions">
+                            <input type="text" id="terminal-filter" placeholder="Filter logs..." class="term-search-input">
+                            <button id="btn-clear-terminal" class="btn-clear" title="Clear logs"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                    </div>
+                    <div class="terminal-output-container">
+                        <div class="terminal-log-flow" id="terminal-log-output">
+                            <!-- Dynamic logs populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Step 4: Active Options Positions -->
+                <section class="positions-section glass" id="panel-step-4">
+                    <div class="card-header">
+                        <h3><span class="header-step-badge">4</span><i class="fa-solid fa-receipt header-icon"></i> Active Option Contracts</h3>
+                        <span class="counter-badge" id="positions-count">0</span>
+                    </div>
+                    <div class="positions-table-wrapper">
+                        <table class="positions-table">
+                            <thead>
+                                <tr>
+                                    <th>Contract</th>
+                                    <th>Pos</th>
+                                    <th>Entry</th>
+                                    <th>Current</th>
+                                    <th>Market Value</th>
+                                    <th>Unrealized P&L</th>
+                                </tr>
+                            </thead>
+                            <tbody id="positions-tbody">
+                                <!-- Dynamic rows -->
+                                <tr class="no-positions-row">
+                                    <td colspan="6" class="text-center">No open options positions.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <!-- Audio effects -->
+        <audio id="audio-alert" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" preload="auto"></audio>
+        <audio id="audio-success" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav" preload="auto"></audio>
+    </div>
+    
+    <script src="/app.js"></script>
+</body>
+</html>
