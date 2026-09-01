@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: sentrytheta-ai
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python main.py run-server"
+    envVars:
+      - key: ALPACA_PAPER
+        value: "true"
+      - key: ALPACA_API_KEY
+        sync: false
+      - key: ALPACA_SECRET_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: TRADING_MODE
+        value: "copilot"
+      - key: SCAN_INTERVAL_SECONDS
+        value: "60"
