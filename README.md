@@ -44,18 +44,18 @@ Whether operating in **Copilot Mode** (human-in-the-loop 1-click approvals) or *
 ## 🏗️ System Architecture
 
 ```mermaid
-flowchart TD
-    News["RSS News Feeds"] --> Analyst["1. Market Analyst AI"]
-    AlpacaData["Alpaca Option Chains"] --> Strategist["2. Volatility Strategist"]
-    Analyst -->|"Directional Sentiment Score"| Strategist
-    Strategist -->|"Drafts Option Trade"| RiskOfficer["3. Sentry Risk Officer"]
-    RiskOfficer -->|"Checks 5% Equity Cap & Drawdowns"| Gatekeeper{"Risk Passed?"}
-    Gatekeeper -->|"No"| TerminalLogs["Log Warning to Thought Terminal"]
-    Gatekeeper -->|"Yes"| ModeCheck{"Mode?"}
-    ModeCheck -->|"Copilot Mode"| UIQueue["Copilot Decision Center (1-Click Approval)"]
-    ModeCheck -->|"Autopilot Mode"| Broker["Alpaca Paper Trading API"]
-    UIQueue -->|"User Approves"| Broker
-    Broker -->|"Order Filled"| ActiveRegistry["Active Option Contracts & SQLite DB"]
+graph TD
+    A[RSS News Feeds] --> B[1. Market Analyst AI]
+    C[Alpaca Option Chains] --> D[2. Volatility Strategist]
+    B -->|Sentiment Score| D
+    D -->|Option Proposal| E[3. Sentry Risk Officer]
+    E -->|Check 5% Cap & Drawdowns| F{Risk Passed?}
+    F -->|No| G[Log Warning to Terminal]
+    F -->|Yes| H{Trading Mode}
+    H -->|Copilot Mode| I[Copilot Decision Center]
+    H -->|Autopilot Mode| J[Alpaca Paper Trading API]
+    I -->|User Approves| J
+    J -->|Order Filled| K[Active Option Contracts & SQLite DB]
 ```
 
 ---
